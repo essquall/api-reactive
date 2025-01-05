@@ -16,18 +16,18 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/users/{id}")
-    public Mono<User> getUser(@PathVariable long id) {
-        return userService.getUser(id);
-    }
-
     @GetMapping(value = "/users", produces = "application/stream+json")
     public Flux<User> getUsers() {
         return userService.getUsers();
     }
 
-    @GetMapping(value = "/users/sublist", produces = "application/stream+json")
-    public Flux<User> getSublistUsers(@RequestParam Long start, @RequestParam Long count) {
-        return userService.getSublistUsers(start, count);
+    @GetMapping(value = "/users/{id}")
+    public Mono<User> getUserById(@PathVariable Long id) {
+        return userService.getUser(id);
+    }
+
+    @PostMapping(value = "/users")
+    public Mono<User> saveUser(@RequestBody User user) {
+        return userService.saveUser(user);
     }
 }
